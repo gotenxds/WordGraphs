@@ -1,9 +1,21 @@
 {
-	"extends": "tslint:recommended",
-	"rules": {
-		"use-strict": true,
-		"member-access": false,
-		"variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
-		"quotemark": [true, "single", "avoid-escape"]
-	}
+  "extends": "tslint:recommended",
+  "rules": {
+    "use-strict": true,
+    "member-access": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ],
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "no-console": false,
+    "max-line-length":[true, 150],
+    "object-literal-sort-keys": false
+  }
 }
