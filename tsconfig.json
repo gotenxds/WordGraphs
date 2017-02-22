@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"experimentalDecorators": true,
+		"lib": ["es6", "dom"],
+		"module": "commonjs",
+		"target": "es6",
+		"noImplicitAny": false,
+		"suppressImplicitAnyIndexErrors": true,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"sourceMap": true,
+		"declaration": true,
+		"outDir": "dist",
+		"removeComments": false,
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"types": [
+			"@types/node"
+		]
+	},
+	"files": [
+		"src/main.ts",
+		"src/stuff.ts"
+	],
+	"exclude": [
+		"node_modules"
+	]
+}

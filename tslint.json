@@ -1,0 +1,9 @@
+{
+	"extends": "tslint:recommended",
+	"rules": {
+		"use-strict": true,
+		"member-access": false,
+		"variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
+		"quotemark": [true, "single", "avoid-escape"]
+	}
+}
