@@ -1,8 +1,7 @@
-import {Predicate} from '../Predicates';
 import {Node} from './Node';
-import * as Predicates from '../Predicates';
+import {Predicates} from '../Predicates';
 
-export abstract class WordGraph{
+export abstract class WordGraph {
     protected _root: Node = new Node();
 
     get root(): Node {
@@ -15,7 +14,7 @@ export abstract class WordGraph{
         return node ? node.final : false;
     }
 
-    startsWith(prefix: string, ...predicates: Predicate[]): string[] {
+    startsWith(prefix: string, ...predicates: ((node: Node, char: string, word: string) => boolean)[]): string[] {
         let node = this.climbTo(prefix);
 
         return node ? this.getWord(node, prefix, false, ...predicates) : [];
@@ -48,7 +47,8 @@ export abstract class WordGraph{
         return words;
     }
 
-    getWord(node: Node, prefix: string = '', exitIfPredicateFail = false, ...predicates: Predicate[]): string[] {
+    getWord(node: Node, prefix: string = '', exitIfPredicateFail = false,
+            ...predicates: ((node: Node, char: string, word: string) => boolean)[]): string[] {
         let words = [];
 
         Object.keys(node.states).forEach(char => {
@@ -70,7 +70,7 @@ export abstract class WordGraph{
         return this.root.size();
     }
 
-    protected climbTo(prefix: string):Node {
+    protected climbTo(prefix: string): Node {
         let node = this.root;
 
         for (let char of prefix) {

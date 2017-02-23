@@ -51,8 +51,6 @@ var percentage_handler = function handler(percentage, msg) {
 		outputCleanup(libPath(), true);
 		console.log("Build started... Good luck!");
 	} else if ( 1 == percentage ) {
-		// TODO: No Error detection. :(
-		create_browser_version(webpack_opts.output.filename);
 
 		// Invokes dts bundling
 		console.log("Bundling d.ts files ...");
@@ -140,7 +138,7 @@ var webpack_opts = {
 	devtool: 'source-map',
 	output: {
 		filename: libPath('main.js'),
-		libraryTarget: "commonjs2"
+		libraryTarget: "umd"
 	},
 	resolve: {
 		extensions: ['', '.ts', '.js'],
@@ -163,24 +161,6 @@ var webpack_opts = {
 	// 	emitErrors: true,
 	// 	failOnHint: true
 	// }
-}
-
-var create_browser_version = function (inputJs) {
-	let outputName = inputJs.replace(/\.[^/.]+$/, "");
-	outputName = `${outputName}.browser.js`;
-	console.log("Creating browser version ...");
-
-	let b = browserify(inputJs, {
-		standalone: bundle_opts.name,
-		debug:true
-	});
-
-	b.bundle(function(err, src) {
-		if ( err != null ) {
-			console.error("Browserify error:");
-			console.error(err);
-		}
-	}).pipe(fs.createWriteStream(outputName));
-}
+};
 
 module.exports = webpack_opts;
