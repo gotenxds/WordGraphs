@@ -3,6 +3,15 @@
 Word graph is a NodeJs/Browser Typescript friendly library providing fast implementations of the trie and Minimal word graph (AKA DAWG, DAFSA)
 while also trying to provide you with an easy to use API for querying data from the graphs.
 
+#Table of contacts
+* [Installation](#Installation)
+    * [TS or any es6 modules](#typescript-or-es-6-modules)
+    * [Script tag](#script-tag)
+* [Usage](#usage)
+    * [Trie](#trie)
+    * [MinimalWordGraph Aka DAGW](#minimalwordgraph-aka-dagw)
+* [Credits](#credits)
+
 ##Tries and DAWGS:
 Tries and DAWGS are final state automatons for solving problem's in many fields such as linguistics and bioinformatics
 The main difference between the two is the size of the end result, In a quick test I ran a Trie containing 0.5M words had around the 1.5M states while the equivalent DAWG contained only 20 thousand.
