@@ -1,10 +1,9 @@
-import {throwIfAbsent} from '../PresentUtils';
 import {WordGraph} from '../wordGraph/WordGraph';
 import {Node} from '../wordGraph/Node';
 
 export class Trie extends WordGraph {
     add(word: string) {
-        throwIfAbsent(word, 'word');
+        super.add(word);
 
         let node = this._root;
 

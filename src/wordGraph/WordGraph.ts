@@ -1,11 +1,16 @@
 import {Node} from './Node';
 import {Predicates} from '../Predicates';
+import {throwIfAbsent} from '../PresentUtils';
 
 export abstract class WordGraph {
     protected _root: Node = new Node();
 
     get root(): Node {
         return this._root;
+    }
+
+    add(word: string) {
+        throwIfAbsent(word, 'word');
     }
 
     lookup(word: string): boolean {
