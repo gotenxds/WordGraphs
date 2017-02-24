@@ -7,6 +7,8 @@ export class MinimalWordGraph extends WordGraph {
     private immutableSize: number;
 
     add(word: string) {
+        super.add(word);
+
         if (this.isImmutable()) {
             throw 'This MinimalWordGraph(DAWG) is immutable and words may no longer be added to it.';
         }
