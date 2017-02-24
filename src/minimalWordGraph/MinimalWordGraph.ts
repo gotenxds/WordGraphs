@@ -13,7 +13,7 @@ export class MinimalWordGraph extends WordGraph {
             throw 'This MinimalWordGraph(DAWG) is immutable and words may no longer be added to it.';
         }
         if (word < this.lastWordAdded) {
-            throw 'Words need to be added in lexicographical order.';
+            throw `Words need to be added in lexicographical order. ${word} after ${this.lastWordAdded}`;
         }
 
         let {node: node, index: index} = this.climbUntilEmpty(word);
