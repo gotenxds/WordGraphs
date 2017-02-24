@@ -74,3 +74,59 @@ describe('Add', () => {
         }
     });
 });
+
+describe('Minimize', () => {
+    it('Should have size equal to length of single word. + 1 (root)', () => {
+        let word = 'catnip';
+        trie.add(word);
+
+        trie.minimize();
+
+        expect(trie.size()).toBe(word.length + 1);
+    });
+
+    it('Should have size equal to length of two words with different prefixes.', () => {
+        let word = 'catnip';
+        let word2 = 'path';
+
+        trie.add(word);
+        trie.add(word2);
+
+        trie.minimize();
+
+        expect(trie.size()).toBe(word.length + word2.length);
+    });
+
+    it('Should have size equal to length of two words - length of matching prefix.', () => {
+        let word = 'cat';
+        let word2 = 'catnip';
+
+        trie.add(word);
+        trie.add(word2);
+
+        trie.minimize();
+
+        expect(trie.size()).toBe(word.length + word2.length - 3 + 1);
+    });
+
+    it('Should have size equal pre-checked size of word back (.5M words).', () => {
+        let word = 'cat';
+        let word2 = 'catnip';
+
+        trie.add(word);
+        trie.add(word2);
+
+        trie.minimize();
+
+        expect(trie.size()).toBe(word.length + word2.length - 3 + 1);
+    });
+
+    it('Complex', () => {
+        let words = ['cat', 'catnip', 'snip', 'turnip', 'zcatnip'];
+
+        words.forEach(word => trie.add(word));
+        trie.minimize();
+
+        expect(trie.size()).toBe(words.join().length - 17);
+    });
+});
