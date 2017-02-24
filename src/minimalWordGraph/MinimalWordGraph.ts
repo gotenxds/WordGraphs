@@ -4,8 +4,12 @@ import {Node} from '../wordGraph/Node';
 export class MinimalWordGraph extends WordGraph {
     private lastWordAdded: string = '';
     private registry: {[key: string]: Node} = {};
+    private immutableSize: number;
 
     add(word: string) {
+        if (this.isImmutable()) {
+            throw 'This MinimalWordGraph(DAWG) is immutable and words may no longer be added to it.';
+        }
         if (word < this.lastWordAdded) {
             throw 'Words need to be added in lexicographical order.';
         }
@@ -45,6 +49,23 @@ export class MinimalWordGraph extends WordGraph {
         }
 
         return registeredNode;
+    }
+
+    size(): number {
+        return this.isImmutable() ? this.immutableSize : super.size();
+    }
+
+    makeImmutable(): void {
+        this.minimize(this.root, this.lastWordAdded);
+
+        this.lastWordAdded = null;
+        this.registry = null;
+
+        this.immutableSize = super.size();
+    }
+
+    isImmutable(): boolean {
+        return this.registry === null;
     }
 
     private climbUntilEmpty(word: string): {node: Node, index: number} {
