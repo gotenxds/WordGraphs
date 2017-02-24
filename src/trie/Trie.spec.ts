@@ -12,11 +12,11 @@ beforeEach(() => trie = new Trie());
 
 describe('Add', () => {
     it('Should be throw if word is null.', () => {
-        expect(() => trie.add(null)).toThrow();
+        expect(() => trie.add(null)).toThrow(`Error: word was not given.`);
     });
 
     it('Should be throw if word is undefined.', () => {
-        expect(() => trie.add(undefined)).toThrow();
+        expect(() => trie.add(undefined)).toThrow(`Error: word was not given.`);
     });
 
     it('Should be able to add a single character as word.', () => {
