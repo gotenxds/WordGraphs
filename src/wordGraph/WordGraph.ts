@@ -22,7 +22,17 @@ export abstract class WordGraph {
     startsWith(prefix: string, ...predicates: ((node: Node, char: string, word: string) => boolean)[]): string[] {
         let node = this.climbTo(prefix);
 
-        return node ? this.getWord(node, prefix, false, ...predicates) : [];
+        if (!node) {
+            return [];
+        }
+
+        let words = [];
+
+        if (this.wordShouldBeAdded(node, predicates, prefix[prefix.length - 1], prefix)) {
+            words.push(prefix);
+        }
+
+        return words.concat(this.getWord(node, prefix, false, ...predicates));
     }
 
     endsWith(suffix: string): string[] {
@@ -30,11 +40,11 @@ export abstract class WordGraph {
     }
 
     containsAny(strings: string[]): string[] {
-        return this.getWord(this.root, '', false, Predicates.containsAny(strings));
+        return this.getWord(this.root, '', false, Predicates.containsAny(...strings));
     }
 
     containsAll(strings: string[]): string[] {
-        return this.getWord(this.root, '', false, Predicates.containsAll(strings));
+        return this.getWord(this.root, '', false, Predicates.containsAll(...strings));
     }
 
     containsOnly(strings: string[]): string[] {
@@ -60,7 +70,7 @@ export abstract class WordGraph {
             let subNode = node.states[char];
             let wordSoFar = prefix + char;
 
-            if (subNode.final && predicates.every(predicate => predicate(subNode, char, wordSoFar))) {
+            if (this.wordShouldBeAdded(subNode, predicates, char, wordSoFar)) {
                 words.push(wordSoFar);
                 words = words.concat(this.getWord(subNode, wordSoFar, exitIfPredicateFail, ...predicates));
             } else if (!subNode.final || (subNode.final && !exitIfPredicateFail)) {
@@ -86,5 +96,9 @@ export abstract class WordGraph {
         }
 
         return node;
+    }
+
+    private wordShouldBeAdded(subNode: Node, predicates: ((node: Node, char: string, word: string) => boolean)[], char, word: string) {
+        return subNode.final && predicates.every(predicate => predicate(subNode, char, word));
     }
 }
