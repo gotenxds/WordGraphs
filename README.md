@@ -10,6 +10,9 @@ while also trying to provide you with an easy to use API for querying data from 
 * [Usage](#usage)
     * [Trie](#trie)
     * [MinimalWordGraph Aka DAGW](#minimalwordgraph-aka-dagw)
+* [Searching](#searching)
+    * [Using built in methods of wordGraph](#using-built-in-methods-of-wordGraph)
+    * [Using QueryBuilder](#using-querybuilder)
 * [Credits](#credits)
 
 ##Tries and DAWGS:
@@ -84,6 +87,51 @@ MinimalWordGraph or DAGW needs words to be inserted in ascending alphabetical or
     mwg.lookup('Cat') // true
     mwg.lookup('Human') // false
     mwg.lookup('cat') // false, graphs are case insensitive (Option will be added in future).
+```
+
+#Searching
+WordGraphs tries you give you a powerfull yet quick search api, you can either use the built in search methods or the more advanced queryBuilder for complex queries.
+
+### Using built in methods of wordGraph
+```javascript
+    let mwg = new MinimalWordGraph();
+
+    mwg = new MinimalWordGraph();
+    mwg.add('Cat');
+    mwg.add('Catnip');
+    mwg.add('taC');
+    mwg.add('Turnip');
+    
+    mwg.startsWith('Cat'); // ['Cat', 'Catnip']
+    mwg.endsWith('nip'); // ['Catnip', 'Turnip']
+    mwg.containsAll('C', 'nip'); // ['Catnip']
+    mwg.containsOnly('t', 'a', 'C'); // ['Cat', 'taC']
+    
+```
+
+### Using QueryBuilder
+### Using built in methods of wordGraph
+```javascript
+    let mwg = new MinimalWordGraph();
+
+    mwg = new MinimalWordGraph();
+    mwg.add('Cat');
+    mwg.add('Catnip');
+    mwg.add('taC');
+    mwg.add('Turnip');
+    
+    let queryBuilder = new QueryBuilder(minimalWordGraph);
+    queryBuilder
+        .startsWith('C')
+        .maxLength(3)
+        .build()(); // ['Cat']
+        
+    queryBuilder
+        .minLength(4)
+        .endsWith('ip')
+        .containsAny('t')
+        .build()(); // ['Catnip', 'Turnip']
+    
 ```
 
 #Credits
