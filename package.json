@@ -1,6 +1,6 @@
 {
   "name": "word-graphs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A librery containing Trie, DAWG with a strong search functionality.",
   "main": "dist/main.js",
   "typings": "dist/main.d.ts",
