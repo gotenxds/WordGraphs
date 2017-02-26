@@ -51,19 +51,19 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
         minimalWordGraph.lookup('unconsentaneousness');
     });
 
-    test('Trie Starts with prefix', () => {
+    test('Trie Starts with', () => {
         trie.startsWith('pop');
     });
 
-    test('Mwg Starts with prefix', () => {
+    test('Mwg Starts with', () => {
         trie.startsWith('pop');
     });
 
-    test('Trie Ends with prefix', () => {
+    test('Trie Ends with', () => {
         trie.endsWith('pop');
     });
 
-    test('Mwg Ends with prefix', () => {
+    test('Mwg Ends with', () => {
         trie.endsWith('pop');
     });
 
