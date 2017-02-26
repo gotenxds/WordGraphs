@@ -85,6 +85,7 @@ As you can see a DAWG may be a bit faster then a trie.
  This is not linear and will take MUCH more time as the size grows.
 ### Running the tests
 To run the tests simply:
+
 1. Clone or fork this repository.
 2. Run `npm i` in the root folder.
 3. `cd ./src/PerformanceTests`
