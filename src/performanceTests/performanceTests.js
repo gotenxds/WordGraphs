@@ -35,6 +35,14 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
 
     test('Add 0.5Mil words to minimalWordGraph', initializeMinimalWordGraph);
 
+    test('Compute trie size', () => {
+        console.log('Trie size: ' + trie.size());
+    });
+
+    test('Compute mwg size', () => {
+        console.log('Mwg size: ' + minimalWordGraph.size());
+    });
+
     test('Look up long word in trie', () => {
         trie.lookup('unconsentaneousness');
     });
@@ -73,5 +81,9 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
             .endsWith('zo')
             .containsAny('ya')
             .build()();
+    });
+
+    test('Minimize trie, affectivly transforming it to a dawg.', () => {
+        trie.minimize();
     });
 });
