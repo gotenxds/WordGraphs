@@ -135,4 +135,5 @@ WordGraphs tries you give you a powerfull yet quick search api, you can either u
 ```
 
 #Credits
-All **construction** algorithms used in this library are from the book [Optimization of Automata](http://pbc.gda.pl/dlibra/docmetadata?id=44644&from=&dirids=1&ver_id=&lp=1&QI=) by [Jan Daciuk](http://www.jandaciuk.pl/) 
+* All **construction** algorithms used in this library are from the book [Optimization of Automata](http://pbc.gda.pl/dlibra/docmetadata?id=44644&from=&dirids=1&ver_id=&lp=1&QI=) by [Jan Daciuk](http://www.jandaciuk.pl/)
+* I use [english-words](https://github.com/dwyl/english-words) - a github repo with just around .5MIL words for my performance tests.
