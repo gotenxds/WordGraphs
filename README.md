@@ -7,6 +7,9 @@ while also trying to provide you with an easy to use API for querying data from 
 * [Installation](#Installation)
     * [TS or any es6 modules](#typescript-or-es-6-modules)
     * [Script tag](#script-tag)
+* [Preformance](#preformance)
+    * [On my pc](#on-my-pc)
+    * [Running the tests](#running-the-tests)
 * [Usage](#usage)
     * [Trie](#trie)
     * [MinimalWordGraph Aka DAGW](#minimalwordgraph-aka-dagw)
@@ -15,11 +18,11 @@ while also trying to provide you with an easy to use API for querying data from 
     * [Using QueryBuilder](#using-querybuilder)
 * [Credits](#credits)
 
-##Tries and DAWGS:
+## Tries and DAWGS:
 Tries and DAWGS are final state automatons for solving problem's in many fields such as linguistics and bioinformatics
 The main difference between the two is the size of the end result, In a quick test I ran a Trie containing 0.5M words had around the 1.5M states while the equivalent DAWG contained only 20 thousand.
 
-##Installation
+## Installation
 WordGraphs can be downloaded via NodeJs
 
 `npm i word-graphs --save-dev`
@@ -48,9 +51,49 @@ trie.add('Example');
 
 console.log(trie.containsAny(['mp'])); // Will print ['Simple', 'Example']
 ```
-##Usage
 
-###Trie
+## Preformance
+### On my pc
+Some simple performance tests for the librery, ran on 0.5Mil words. 
+My PC (i5-6600, 16GB ram windows 10 64bit).
+```
+    Add 0.5Mil words to trie: toke 1160.777 Ms or 1.160777 Sec
+    Add 0.5Mil words to minimalWordGraph: toke 3162.078 Ms or 3.162078 Sec
+```
+As can be seen a trie constructs much faster then a DAWG.
+```    
+    Trie size: 1060026
+    Compute trie size: toke 3015.024 Ms or 3.015024 Sec
+    Mwg size: 222231
+    Compute mwg size: toke 1476.980 Ms or 1.47698 Sec
+```
+But a DAWG is much smaller then a trie.
+```    
+    Look up long word in trie: toke 0.637 Ms or 0.000637 Sec
+    Look up long word in mwg: toke 0.093 Ms or 0.000093 Sec
+    Trie Starts with: toke 1.387 Ms or 0.001387 Sec
+    Mwg Starts with: toke 1.010 Ms or 0.00101 Sec
+    Trie Ends with: toke 1785.083 Ms or 1.785083 Sec
+    Mwg Ends with: toke 1752.311 Ms or 1.752311 Sec
+    QueryBuilder Trie startsWith, endsWith, containsAny: toke 55.003 Ms or 0.055003 Sec
+    QueryBuilder Mwg startsWith, endsWith, containsAny: toke 51.406 Ms or 0.051406 Sec
+```
+As you can see a DAWG may be a bit faster then a trie.
+```    
+    Minimize trie, affectivly transforming it to a dawg.: toke 2428.354 Ms or 2.4283539999999997 Sec
+```
+ This is not linear and will take MUCH more time as the size grows.
+### Running the tests
+To run the tests simply:
+1. Clone or fork this repository.
+2. Run `npm i` in the root folder.
+3. `cd ./src/PerformanceTests`
+4. `node node performanceTests.js`
+
+Good luck :)
+## Usage
+
+### Trie
 Trie can accept words in any order:
 ```javascript
     // Creating a new Trie.
@@ -68,7 +111,7 @@ Trie can accept words in any order:
     trie.lookup('cat') // false, graphs are case insensitive (autoConvert Option will be added in future).
 ```
 
-###MinimalWordGraph Aka DAGW
+### MinimalWordGraph Aka DAGW
 MinimalWordGraph or DAGW needs words to be inserted in ascending alphabetical order:
 ```javascript
     // Creating a new MinimalWordGraph.
@@ -89,7 +132,7 @@ MinimalWordGraph or DAGW needs words to be inserted in ascending alphabetical or
     mwg.lookup('cat') // false, graphs are case insensitive (Option will be added in future).
 ```
 
-#Searching
+# Searching
 WordGraphs tries you give you a powerfull yet quick search api, you can either use the built in search methods or the more advanced queryBuilder for complex queries.
 
 ### Using built in methods of wordGraph
@@ -110,7 +153,6 @@ WordGraphs tries you give you a powerfull yet quick search api, you can either u
 ```
 
 ### Using QueryBuilder
-### Using built in methods of wordGraph
 ```javascript
     let mwg = new MinimalWordGraph();
 
@@ -134,6 +176,6 @@ WordGraphs tries you give you a powerfull yet quick search api, you can either u
     
 ```
 
-#Credits
+# Credits
 * All **construction** algorithms used in this library are from the book [Optimization of Automata](http://pbc.gda.pl/dlibra/docmetadata?id=44644&from=&dirids=1&ver_id=&lp=1&QI=) by [Jan Daciuk](http://www.jandaciuk.pl/)
 * I use [english-words](https://github.com/dwyl/english-words) - a github repo with just around .5MIL words for my performance tests.
