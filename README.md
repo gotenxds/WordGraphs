@@ -13,6 +13,7 @@ while also trying to provide you with an easy to use API for querying data from 
 * [Usage](#usage)
     * [Trie](#trie)
     * [MinimalWordGraph Aka DAGW](#minimalwordgraph-aka-dagw)
+      * [Making the DAGW immutable](#making-the-dagw-immutable)
 * [Searching](#searching)
     * [Using built in methods of wordGraph](#using-built-in-methods-of-wordGraph)
     * [Using QueryBuilder](#using-querybuilder)
@@ -132,6 +133,15 @@ MinimalWordGraph or DAGW needs words to be inserted in ascending alphabetical or
     mwg.lookup('Human') // false
     mwg.lookup('cat') // false, graphs are case insensitive (Option will be added in future).
 ```
+####Making the DAGW immutable
+It is highly recommanded that after you have finished building the dawg you call 
+```javascript
+   mwg.makeImmutable();
+```
+This will:
+* Make the dawg immutable - calling the `add()` method will result in an exception.
+* Free up unneeded resources.
+* Allow the size of the dawg to be callculated once and saved thus making calls to `size()` O(1).
 
 # Searching
 WordGraphs tries you give you a powerfull yet quick search api, you can either use the built in search methods or the more advanced queryBuilder for complex queries.
