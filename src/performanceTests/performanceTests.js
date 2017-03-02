@@ -31,9 +31,12 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
         words.forEach(w => minimalWordGraph.add(w));
     };
 
-    test('Add 0.5Mil words to trie', initializeTrie);
+    title('Creating word graphs.');
 
+    test('Add 0.5Mil words to trie', initializeTrie);
     test('Add 0.5Mil words to minimalWordGraph', initializeMinimalWordGraph);
+
+    title('Computing size.');
 
     test('Compute trie size', () => {
         console.log('Trie size: ' + trie.size());
@@ -43,6 +46,8 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
         console.log('Mwg size: ' + minimalWordGraph.size());
     });
 
+    title('Look up.');
+
     test('Look up long word in trie', () => {
         trie.lookup('unconsentaneousness');
     });
@@ -50,6 +55,8 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
     test('Look up long word in mwg', () => {
         minimalWordGraph.lookup('unconsentaneousness');
     });
+
+    title('Starts With.');
 
     test('Trie Starts with', () => {
         trie.startsWith('pop');
@@ -59,6 +66,8 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
         trie.startsWith('pop');
     });
 
+    title('Ends With.');
+
     test('Trie Ends with', () => {
         trie.endsWith('pop');
     });
@@ -66,6 +75,8 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
     test('Mwg Ends with', () => {
         trie.endsWith('pop');
     });
+
+    title('Query builder.');
 
     test('QueryBuilder Trie startsWith, endsWith, containsAny', () => {
         new lib.QueryBuilder(trie)
@@ -83,9 +94,13 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
             .build()();
     });
 
+    title('Minimize.');
+
     test('Minimize trie, affectivly transforming it to a dawg.', () => {
         trie.minimize();
     });
+
+    title('Edit distance.');
 
     test('Edit distance Trie.', () => {
         lib.editDistance(trie.root, 'festivally', 2);
@@ -100,6 +115,10 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
     });
 
     test('Edit distance MWG. Max results set to 3, searching words similar to "pop".', () => {
-        console.log(minimalWordGraph.similarTo('pop', {maxDistance:2, maxResults : 3}))
+        minimalWordGraph.similarTo('pop', {maxDistance:2, maxResults : 3});
     });
 });
+
+function title(title) {
+    console.log(`\n-- ${title} --`);
+}
