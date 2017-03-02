@@ -31,7 +31,7 @@ function searchForSimilarWords(node: Node, word: string,
         }
 
         if (results.length >= options.maxResults) {
-            return results;
+            return results.slice(0, options.maxResults);
         }
 
         results = results.concat(searchForSimilarWords(node.nodeOf(key), word, options, currentWord, table));
