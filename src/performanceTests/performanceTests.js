@@ -86,4 +86,20 @@ fs.readFile('englishWords', 'utf8', function(err, data) {
     test('Minimize trie, affectivly transforming it to a dawg.', () => {
         trie.minimize();
     });
+
+    test('Edit distance Trie.', () => {
+        lib.editDistance(trie.root, 'festivally', 2);
+    });
+
+    test('Edit distance MWG.', () => {
+        lib.editDistance(minimalWordGraph.root, 'festivally', 2);
+    });
+
+    test('Edit distance Trie, Max results set to 3.', () => {
+        lib.editDistance(trie.root, 'festivally', {maxDistance:2, maxResults : 3});
+    });
+
+    test('Edit distance MWG. Max results set to 3', () => {
+        lib.editDistance(minimalWordGraph.root, 'festivally', {maxDistance:2, maxResults : 3});
+    });
 });
