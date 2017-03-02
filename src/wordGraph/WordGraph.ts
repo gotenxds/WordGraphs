@@ -1,6 +1,7 @@
 import {Node} from './Node';
 import {Predicates} from '../Predicates';
 import {throwIfAbsent} from '../PresentUtils';
+import {editDistance} from '../editDistance/editDistance';
 
 export abstract class WordGraph {
     protected _root: Node = new Node();
@@ -79,6 +80,10 @@ export abstract class WordGraph {
         });
 
         return words;
+    }
+
+    similarTo(word: string, options: {maxDistance: number, maxResults: number} = {maxDistance: 3, maxResults: Number.MAX_VALUE}) {
+        return editDistance(this.root, word, options);
     }
 
     size(): number {

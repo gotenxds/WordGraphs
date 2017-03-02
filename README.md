@@ -14,6 +14,7 @@ while also trying to provide you with an easy to use API for querying data from 
     * [Trie](#trie)
     * [MinimalWordGraph Aka DAGW](#minimalwordgraph-aka-dagw)
       * [Making the DAGW immutable](#making-the-dagw-immutable)
+* [Edit distance (spell checking)](#edit-distance)
 * [Searching](#searching)
     * [Using built in methods of wordGraph](#using-built-in-methods-of-wordGraph)
     * [Using QueryBuilder](#using-querybuilder)
@@ -83,7 +84,15 @@ As you can see a DAWG may be a bit faster then a trie.
 ```    
     Minimize trie, affectivly transforming it to a dawg.: toke 2428.354 Ms or 2.4283539999999997 Sec
 ```
- This is not linear and will take MUCH more time as the size grows.
+This is not linear and will take MUCH more time as the size grows.
+```
+ Edit distance Trie.: toke 5439.492 Ms or 5.439492 Sec
+ Edit distance MWG.: toke 5241.073 Ms or 5.241073 Sec
+ Edit distance Trie, Max results set to 3, searching words similar to "pop".: toke 2.090 Ms or 0.00209 Sec
+ Edit distance MWG. Max results set to 3, searching words similar to "pop".: toke 1.860 Ms or 0.00186 Sec
+ ```
+As you can spellchecking can be really fast or really slow, it depends on the word, limiting the number of results to 3 may help allot.
+ 
 ### Running the tests
 To run the tests simply:
 
@@ -142,6 +151,19 @@ This will:
 * Make the dawg immutable - calling the `add()` method will result in an exception.
 * Free up unneeded resources.
 * Allow the size of the dawg to be callculated once and saved thus making calls to `size()` O(1).
+
+# Edit distance
+[Edit distance](https://en.wikipedia.org/wiki/Edit_distance) is an algorithm that helps us determine the amount of operations we need to make to transform a word A into word B.
+I have extended the algorithm linked above to take advantage of that fact we are using an automaton.
+ 
+Using the edit distance feature of wordGraphs is just as simple as the rest of tha api:
+```
+    // Lets say we have a word graph: graph and we want to search for words like 'banna' in hope to find 'banana'
+    graph.similarTo('banna'); // In my dictionery we get ['Ban', 'Bana', 'Banat', 'Banba', 'Banco', 'Banda', 'Bandana'] + 4030 more items....
+    
+    // To many results ? What if we want to change the maximus error amount or max results?
+        graph.similarTo('banna', {maxDistance:1, maxResults : 5}); // [ 'banana', 'Canna', 'Danna', 'Hanna', 'Janna' ]
+```
 
 # Searching
 WordGraphs tries you give you a powerfull yet quick search api, you can either use the built in search methods or the more advanced queryBuilder for complex queries.
