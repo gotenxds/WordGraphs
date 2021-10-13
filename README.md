@@ -142,7 +142,7 @@ MinimalWordGraph or DAGW needs words to be inserted in ascending alphabetical or
     mwg.lookup('Human') // false
     mwg.lookup('cat') // false, graphs are case insensitive (Option will be added in future).
 ```
-####Making the DAGW immutable
+#### Making the DAGW immutable
 It is highly recommended that after you have finished building the dawg you call 
 ```javascript
    mwg.makeImmutable();
