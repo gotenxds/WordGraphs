@@ -1,5 +1,5 @@
 
-#Word Graphs
+# Word Graphs
 Word graph is a NodeJs/Browser Typescript friendly library providing fast implementations of the trie and Minimal word graph (AKA DAWG, DAFSA)
 while also trying to provide you with an easy to use API for querying data from the graphs.
 
@@ -7,7 +7,7 @@ while also trying to provide you with an easy to use API for querying data from 
 * [Installation](#Installation)
     * [TS or any es6 modules](#typescript-or-es-6-modules)
     * [Script tag](#script-tag)
-* [Preformance](#preformance)
+* [Performance](#performance)
     * [On my pc](#on-my-pc)
     * [Running the tests](#running-the-tests)
 * [Usage](#usage)
@@ -54,9 +54,9 @@ trie.add('Example');
 console.log(trie.containsAny(['mp'])); // Will print ['Simple', 'Example']
 ```
 
-## Preformance
+## Performance
 ### On my pc
-Some simple performance tests for the librery, ran on 0.5Mil words. 
+Some simple performance tests for the library, ran on 0.5Mil words. 
 My PC (i5-6600, 16GB ram windows 10 64bit).
 ```
     Add 0.5Mil words to trie: toke 1160.777 Ms or 1.160777 Sec
@@ -82,7 +82,7 @@ But a DAWG is much smaller then a trie.
 ```
 As you can see a DAWG may be a bit faster then a trie.
 ```    
-    Minimize trie, affectivly transforming it to a dawg.: toke 2428.354 Ms or 2.4283539999999997 Sec
+    Minimize trie, effectively transforming it to a dawg.: toke 2428.354 Ms or 2.4283539999999997 Sec
 ```
 This is not linear and will take MUCH more time as the size grows.
 ```
@@ -142,15 +142,15 @@ MinimalWordGraph or DAGW needs words to be inserted in ascending alphabetical or
     mwg.lookup('Human') // false
     mwg.lookup('cat') // false, graphs are case insensitive (Option will be added in future).
 ```
-####Making the DAGW immutable
-It is highly recommanded that after you have finished building the dawg you call 
+#### Making the DAGW immutable
+It is highly recommended that after you have finished building the dawg you call 
 ```javascript
    mwg.makeImmutable();
 ```
 This will:
 * Make the dawg immutable - calling the `add()` method will result in an exception.
 * Free up unneeded resources.
-* Allow the size of the dawg to be callculated once and saved thus making calls to `size()` O(1).
+* Allow the size of the dawg to be calculated once and saved thus making calls to `size()` O(1).
 
 # Edit distance
 [Edit distance](https://en.wikipedia.org/wiki/Edit_distance) is an algorithm that helps us determine the amount of operations we need to make to transform a word A into word B.
@@ -159,7 +159,7 @@ I have extended the algorithm linked above to take advantage of that fact we are
 Using the edit distance feature of wordGraphs is just as simple as the rest of tha api:
 ```
     // Lets say we have a word graph: graph and we want to search for words like 'banna' in hope to find 'banana'
-    graph.similarTo('banna'); // In my dictionery we get ['Ban', 'Bana', 'Banat', 'Banba', 'Banco', 'Banda', 'Bandana'] + 4030 more items....
+    graph.similarTo('banna'); // In my dictionary we get ['Ban', 'Bana', 'Banat', 'Banba', 'Banco', 'Banda', 'Bandana'] + 4030 more items....
     
     // To many results ? What if we want to change the maximus error amount or max results?
         graph.similarTo('banna', {maxDistance:1, maxResults : 5}); // [ 'banana', 'Canna', 'Danna', 'Hanna', 'Janna' ]
