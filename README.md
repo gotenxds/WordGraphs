@@ -180,8 +180,8 @@ WordGraphs tries you give you a powerfull yet quick search api, you can either u
     
     mwg.startsWith('Cat'); // ['Cat', 'Catnip']
     mwg.endsWith('nip'); // ['Catnip', 'Turnip']
-    mwg.containsAll('C', 'nip'); // ['Catnip']
-    mwg.containsOnly('t', 'a', 'C'); // ['Cat', 'taC']
+    mwg.containsAll([ 'C', 'nip' ]); // ['Catnip']
+    mwg.containsOnly([ 't', 'a', 'C' ]); // ['Cat', 'taC']
     
 ```
 
